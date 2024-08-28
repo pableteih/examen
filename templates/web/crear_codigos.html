@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Crear Códigos{% endblock %}
+
+{% block content %}
+<h1>Generar Códigos para la Encuesta: {{ encuesta.nombre }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Generar Códigos</button>
+</form>
+
+{% if codigos_generados %}
+    <h3>Códigos Generados:</h3>
+    <ul>
+        {% for codigo in codigos_generados %}
+            <li>{{ codigo.codigo }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay códigos generados aún.</p>
+{% endif %}
+
+<a href="{% url 'lista_encuestas' %}" class="btn btn-secondary mt-3">Volver a Mis Encuestas</a>
+{% endblock %}

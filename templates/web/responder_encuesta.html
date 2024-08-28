@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Responder Encuesta: {{ encuesta.nombre }}{% endblock %}
+
+{% block content %}
+<h1>Responder Encuesta: {{ encuesta.nombre }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <input type="hidden" name="codigo" value="{{ request.GET.codigo }}">
+
+    {% for pregunta in preguntas %}
+        <div class="form-group">
+            <label>{{ pregunta.texto }}</label>
+
+            <select name="respuesta_{{ pregunta.id }}" class="form-control" required>
+                <option value="" disabled selected>Seleccione una opción</option>
+                {% for value, label in opciones_satisfaccion %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Enviar Respuestas</button>
+</form>
+
+<a href="{% url 'index' %}" class="btn btn-secondary mt-3">Volver</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Crear Encuesta{% endblock %}
+
+{% block content %}
+<h1>Crear Nueva Encuesta</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Crear Encuesta</button>
+</form>
+<a href="{% url 'lista_encuestas' %}" class="btn btn-secondary mt-3">Volver a Mis Encuestas</a>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Mis Encuestas{% endblock %}
+
+{% block content %}
+<h1>Mis Encuestas</h1>
+
+{% if encuestas %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Premio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for encuesta in encuestas %}
+                <tr>
+                    <td>{{ encuesta.nombre }}</td>
+                    <td>{{ encuesta.premio }}</td>
+                    <td>
+                        <a href="{% url 'editar_encuesta' encuesta.id %}" class="btn btn-warning">Editar Encuesta</a>
+                        <a href="{% url 'crear_pregunta' encuesta.id %}" class="btn btn-success">Crear Pregunta</a>
+                        <a href="{% url 'crear_codigos' encuesta.id %}" class="btn btn-info">Crear Códigos</a>
+                        <a href="{% url 'listar_preguntas' encuesta.id %}" class="btn btn-primary">Ver Preguntas</a>
+                        <form action="{% url 'eliminar_encuesta' encuesta.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Eliminar Encuesta</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No has creado ninguna encuesta aún.</p>
+{% endif %}
+
+<a href="{% url 'crear_encuesta' %}" class="btn btn-primary mt-3">Crear Nueva Encuesta</a>
+{% endblock %}

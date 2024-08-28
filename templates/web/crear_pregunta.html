@@ -1,0 +1,14 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Crear Pregunta{% endblock %}
+
+{% block content %}
+<h1>Crear Pregunta para la Encuesta: {{ encuesta.nombre }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Crear Pregunta</button>
+</form>
+
+<a href="{% url 'listar_preguntas' encuesta.id %}" class="btn btn-secondary mt-3">Volver a Lista de Preguntas</a>
+{% endblock %}

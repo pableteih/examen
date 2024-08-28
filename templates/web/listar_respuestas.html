@@ -1,0 +1,19 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Respuestas para la Pregunta: {{ pregunta.texto }}{% endblock %}
+
+{% block content %}
+<h1>Respuestas para la Pregunta: {{ pregunta.texto }}</h1>
+
+{% if respuestas %}
+    <ul>
+        {% for respuesta in respuestas %}
+            <li>{{ respuesta.valor }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay respuestas para esta pregunta aún.</p>
+{% endif %}
+
+<a href="{% url 'listar_preguntas' pregunta.encuesta.id %}" class="btn btn-secondary mt-3">Volver a Lista de Preguntas</a>
+{% endblock %}

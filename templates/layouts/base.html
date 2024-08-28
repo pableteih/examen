@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Encuestas{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'index' %}">Encuestas Plataforma</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'crear_encuesta' %}">Crear Encuesta</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'lista_encuestas' %}">Encuestas</a></li>
+            </ul>
+            {% if user.is_authenticated %}
+                <span class="navbar-text">Hola, {{ user.username }}</span>
+                <a class="btn btn-outline-secondary ml-2" href="{% url 'logout' %}">Cerrar Sesión</a>
+            {% else %}
+                <a class="btn btn-outline-primary ml-2" href="{% url 'login' %}">Iniciar Sesión</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container mt-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

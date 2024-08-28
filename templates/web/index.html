@@ -1,0 +1,23 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<h1>Bienvenido al Sistema de Encuestas</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="codigo">Ingresa el Código de la Encuesta:</label>
+        <input type="text" name="codigo" id="codigo" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Ver Encuesta</button>
+</form>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} mt-3">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+
+{% endblock %}

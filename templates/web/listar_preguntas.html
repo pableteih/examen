@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Preguntas de la Encuesta: {{ encuesta.nombre }}{% endblock %}
+
+{% block content %}
+<h1>Preguntas de la Encuesta: {{ encuesta.nombre }}</h1>
+
+{% if preguntas %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Pregunta</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pregunta in preguntas %}
+                <tr>
+                    <td>{{ pregunta.texto }}</td>
+                    <td>
+                        <!-- Botones de acción para editar y eliminar preguntas -->
+                        <a href="{% url 'editar_pregunta' pregunta.id %}" class="btn btn-warning">Editar Pregunta</a>
+                        <a href="{% url 'ver_respuestas' pregunta.id %}" class="btn btn-primary">Ver Respuestas</a>
+                        <form action="{% url 'eliminar_pregunta' pregunta.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Eliminar Pregunta</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay preguntas para esta encuesta aún.</p>
+{% endif %}
+
+<a href="{% url 'crear_pregunta' encuesta.id %}" class="btn btn-primary mt-3">Agregar Nueva Pregunta</a>
+<a href="{% url 'lista_encuestas' %}" class="btn btn-secondary mt-3">Volver a Mis Encuestas</a>
+{% endblock %}
